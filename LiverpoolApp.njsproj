@@ -33,18 +33,6 @@
     <Content Include="config\db.config.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="models\course.model.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="models\enrollment.model.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="models\role.model.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="models\user.model.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="controllers\course.controller.js">
       <SubType>Code</SubType>
     </Content>
