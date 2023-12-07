@@ -30,17 +30,69 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="config\db.config.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\course.model.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\enrollment.model.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\role.model.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\user.model.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="controllers\course.controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="controllers\enrollment.controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\course.routes.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\enrollment.routes.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
-    <Content Include="routes\users.js" />
-    <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="controllers\role.controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="controllers\user.controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\role.routes.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\user.routes.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="services\course.service.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="services\database.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+    <None Include="database scripts\**\*">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database Scripts\" />
+    <Folder Include="database scripts\" />
+    <Folder Include="database scripts\Create Scripts\" />
+    <Folder Include="database scripts\Insert Scripts\" />
+    <Folder Include="config\" />
+    <Folder Include="models\" />
+    <Folder Include="controllers\" />
+    <Folder Include="services\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
