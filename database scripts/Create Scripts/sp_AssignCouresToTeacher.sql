@@ -29,7 +29,7 @@ BEGIN
     FROM users
     WHERE UserID = p_AdminUserID AND RoleID = 1; -- Admin Role ID is 1
 
-    -- Ensure user is an Admin
+    -- If the user is not an admin, show an error
     IF userIsAdmin = 0 THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Only Admins can assign courses.';
@@ -40,7 +40,7 @@ BEGIN
     FROM users
     WHERE UserID = p_TeacherUserID AND RoleID = 2; -- Teacher Role ID is 2
 
-    -- Ensure the teacher exists
+    -- If the teacher does not exist, show error message
     IF teacherExists = 0 THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Teacher with provided UserID does not exist or is not valid.';
@@ -51,7 +51,7 @@ BEGIN
     FROM courses
     WHERE CourseID = p_CourseID;
 
-    -- Ensure the course is available
+    -- if the course is not available, show error message
     IF courseIsAvailable = 0 THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Course is not available.';
