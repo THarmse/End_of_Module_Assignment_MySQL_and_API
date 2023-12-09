@@ -14,9 +14,10 @@ DROP PROCEDURE IF EXISTS `sp_AssignCoursesToTeacher`$$
 -- Create the new procedure
 CREATE PROCEDURE `sp_AssignCoursesToTeacher`(
     IN p_AdminUserID INT, 
-    IN p_CourseIDs TEXT, -- Comma-separated list of Course IDs
+    IN p_CourseIDs TEXT, -- Has to be Comma-separated list of Course IDs to be submitted from API/Postman
     IN p_TeacherUserID INT,
-    OUT p_RowsAffected INT
+    OUT p_RowsAffected INT,
+    OUT p_ResultMessage VARCHAR(255)
 )
 sp: BEGIN
     DECLARE userIsAdmin TINYINT;
@@ -38,11 +39,11 @@ sp: BEGIN
     FROM users
     WHERE UserID = p_AdminUserID AND RoleID = 1;
 
-    -- If the user is not an admin, roll back and show an error
+    -- If the user is not an admin, roll back and set result message
     IF userIsAdmin = 0 THEN
         ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Transaction Rolled back: Only Admins can assign courses.';
+        SET p_RowsAffected = 0;
+        SET p_ResultMessage = 'Transaction Error: Only Admins can assign courses.';
         LEAVE sp;
     END IF;
 
@@ -51,11 +52,11 @@ sp: BEGIN
     FROM users
     WHERE UserID = p_TeacherUserID AND RoleID = 2;
 
-    -- If the teacher does not exist, roll back and show error message
+    -- If the teacher does not exist, roll back and set result message
     IF teacherExists = 0 THEN
         ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Transaction Rolled back: Teacher with provided UserID does not exist or is not valid.';
+        SET p_RowsAffected = 0;
+        SET p_ResultMessage = 'Transaction Error: Teacher with provided UserID does not exist or is not valid.';
         LEAVE sp;
     END IF;
 
@@ -71,8 +72,8 @@ sp: BEGIN
         IF currentCourseID REGEXP '^[0-9]+$' = 0 THEN
             SET done = 1;
             ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'Transaction Rolled back: Invalid CourseID format. Only numbers are allowed, separated by a comma';
+            SET p_RowsAffected = 0;
+            SET p_ResultMessage = 'Transaction Error: Invalid CourseID format. Only numbers are allowed, separated by a comma';
             LEAVE sp;
         END IF;
 
@@ -81,12 +82,12 @@ sp: BEGIN
         FROM courses
         WHERE CourseID = currentCourseID;
 
-        -- If the course does not exist, roll back and show error message
+        -- If the course does not exist, roll back and set result message
         IF courseExists = 0 THEN
             SET done = 1;
             ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'Transaction Rolled back: One or More courses provided, do not exist.';
+            SET p_RowsAffected = 0;
+            SET p_ResultMessage = 'Transaction Rolled back: One or More courses provided, do not exist.';
             LEAVE sp;
         END IF;
 
@@ -102,11 +103,13 @@ sp: BEGIN
         SET courseCursor = courseCursor + 1;
     END WHILE;
 
-    -- If no error occurred, commit the transaction
+    -- If no error occurred, commit the transaction and set success message
     IF done = 0 THEN
         COMMIT;
+        SET p_ResultMessage = 'Courses successfully assigned to the teacher.';
     ELSE
         ROLLBACK;
+        -- Error message is already set in the respective conditional blocks above for each check
     END IF;
 
 END$$

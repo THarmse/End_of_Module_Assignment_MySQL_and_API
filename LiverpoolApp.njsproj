@@ -39,6 +39,7 @@
     <Content Include="controllers\enrollment.controller.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
     <Content Include="routes\course.routes.js">
       <SubType>Code</SubType>
     </Content>
@@ -64,6 +65,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="services\database.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="services\enrollment.service.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />

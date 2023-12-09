@@ -11,7 +11,7 @@ var indexRoute = require('./routes/index');
 //const userRoutes = require('./routes/user.routes');
 //const roleRoutes = require('./routes/role.routes');
 const courseRoutes = require('./routes/course.routes');
-//const enrollmentRoutes = require('./routes/enrollment.routes');
+const enrollmentRoutes = require('./routes/enrollment.routes');
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/api/users', userRoutes);
 //app.use('/api/roles', roleRoutes);
 app.use('/api/courses', courseRoutes);
-//app.use('/api/enrollments', enrollmentRoutes);
+app.use('/api/enrollments', enrollmentRoutes);
 
 // General routes
 app.use('/', indexRoute);
