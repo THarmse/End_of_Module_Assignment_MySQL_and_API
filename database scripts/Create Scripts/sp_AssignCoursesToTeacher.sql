@@ -106,7 +106,7 @@ sp: BEGIN
     -- If no error occurred, commit the transaction and set success message
     IF done = 0 THEN
         COMMIT;
-        SET p_ResultMessage = 'Courses successfully assigned to the teacher.';
+        SET p_ResultMessage = 'Success: Courses successfully assigned to the teacher.';
     ELSE
         ROLLBACK;
         -- Error message is already set in the respective conditional blocks above for each check
