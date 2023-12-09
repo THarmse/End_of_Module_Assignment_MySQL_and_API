@@ -69,7 +69,7 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <None Include="database scripts\**\*">
+    <None Include="database scripts\Create Scripts\sp_AssignCoursesToTeacher.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
