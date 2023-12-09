@@ -21,6 +21,7 @@ CREATE PROCEDURE `sp_EnrollStudentInCourse`(
 sp: BEGIN
     DECLARE studentRole TINYINT;
     DECLARE courseExists TINYINT;
+    DECLARE courseAvailable TINYINT;
     DECLARE alreadyEnrolled TINYINT;
 
     -- Initialize p_AffectedRows to 0
@@ -33,7 +34,7 @@ sp: BEGIN
 
     -- If the user is not a student, set result message
     IF studentRole = 0 THEN
-        SET p_ResultMessage = 'Only students can enroll in courses.';
+        SET p_ResultMessage = 'Transaction Error: Only students can enroll in courses.';
         LEAVE sp;
     END IF;
 
@@ -44,7 +45,18 @@ sp: BEGIN
 
     -- If the course does not exist, set result message
     IF courseExists = 0 THEN
-        SET p_ResultMessage = 'The specified course does not exist.';
+        SET p_ResultMessage = 'Transaction Error: The specified course does not exist.';
+        LEAVE sp;
+    END IF;
+    
+        -- Check if the course is available for enrollment
+    SELECT COUNT(*) INTO courseAvailable
+    FROM courses
+    WHERE CourseID = p_CourseID and isAvailable = 1;
+
+    -- If the course is valid but not available for enrollment, set result message
+    IF courseAvailable = 0 THEN
+        SET p_ResultMessage = 'Transaction Error: The specified course is not available for enrollment.';
         LEAVE sp;
     END IF;
 
@@ -55,7 +67,7 @@ sp: BEGIN
 
     -- If the student is already enrolled, set result message
     IF alreadyEnrolled > 0 THEN
-        SET p_ResultMessage = 'Student is already enrolled in this course.';
+        SET p_ResultMessage = 'Transaction Error: Student is already enrolled in this course.';
         LEAVE sp;
     END IF;
 
@@ -64,7 +76,7 @@ sp: BEGIN
     VALUES (p_CourseID, p_StudentUserID);
 
     -- Set success result message
-    SET p_ResultMessage = 'Student successfully enrolled in the course.';
+    SET p_ResultMessage = 'Success: Student successfully enrolled in the course.';
 
     -- Capture the number of affected rows
     SET p_AffectedRows = ROW_COUNT();

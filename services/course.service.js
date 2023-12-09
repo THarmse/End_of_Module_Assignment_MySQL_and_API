@@ -21,3 +21,19 @@ exports.assignCoursesToTeacher = (adminUserId, courseIdsStr, teacherUserId, call
         });
     });
 };
+
+
+// Service function to list available courses with an optional search filter
+exports.listAvailableCourses = (optional_course_search, callback) => {
+    // Call the stored procedure with the provided search term
+    db.query('CALL sp_ListAvailableCourses(?)', [optional_course_search], (error, results) => {
+        if (error) {
+            // Pass any errors that occur during the stored procedure call back to the controller
+            return callback(error, null);
+        }
+
+        // If successful, pass the results back to the controller
+        // Assuming the results are in the first element of the results array
+        return callback(null, results[0]);
+    });
+};

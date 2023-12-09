@@ -25,3 +25,23 @@ exports.assignCoursesToTeacher = (req, res) => {
         }
     });
 };
+
+
+// Controller method to list available courses with an optional search filter
+exports.listAvailableCourses = (req, res) => {
+    // Extracting optional_course_search from the request body, using brackets for optional
+    const { optional_course_search } = req.body;
+
+    // Call the service function, providing the optional search term and a callback for handling the response
+    courseService.listAvailableCourses(optional_course_search, (error, data) => {
+        if (error) {
+            // If an error occurs, send a 500 Internal Server Error response with the error message
+            res.status(500).send({ message: error.message });
+        } else {
+            // On successful retrieval, send back the data received from the service layer
+            res.send(data);
+        }
+    });
+};
+
+

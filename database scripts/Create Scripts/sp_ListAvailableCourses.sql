@@ -1,0 +1,39 @@
+-- Stored Procedure to List All Available Courses with Course Titles and Teacher Names
+-- Version: 1.1
+-- Date Updated: 09 December 2023
+-- Author: Theodor Harmse
+-- Group: Group C
+
+USE `mydb`;
+
+DELIMITER $$
+
+-- Drop existing procedure if it exists
+DROP PROCEDURE IF EXISTS `sp_ListAvailableCourses`$$
+
+-- Create the new procedure with an optional search parameter 
+CREATE PROCEDURE `sp_ListAvailableCourses`(IN optional_course_search VARCHAR(255))
+BEGIN
+
+    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses
+    IF optional_course_search IS NULL OR optional_course_search = '' THEN
+        SELECT 
+            c.CourseID AS Course_ID, 
+            c.Title AS Course_Name, 
+            IFNULL(CONCAT(u.Name), 'TBD - To Be Determined') AS Teacher_Name -- Assuming a valid approach - Course can be avaialble, but teacher not yet assigned. Else, use INNER JOIN
+        FROM courses c
+        LEFT JOIN users u ON c.TeacherID = u.UserID
+        WHERE c.isAvailable = 1;
+    ELSE
+        SELECT 
+            c.CourseID AS Course_ID, 
+            c.Title AS Course_Name, 
+            IFNULL(CONCAT(u.Name), 'TBD - To Be Determined') AS Teacher_Name -- Assuming a valid approach - Course can be avaialble, but teacher not yet assigned. Else, use INNER JOIN
+        FROM courses c
+        LEFT JOIN users u ON c.TeacherID = u.UserID
+        WHERE c.isAvailable = 1 AND (c.Title LIKE CONCAT('%', optional_course_search, '%'));
+    END IF;
+
+END$$
+
+DELIMITER ;
