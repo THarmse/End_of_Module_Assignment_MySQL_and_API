@@ -39,7 +39,7 @@
     <Content Include="controllers\enrollment.controller.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="database scripts\Create Scripts\sp_assignStudentGrade.sql" />
+    <Content Include="database scripts\Create Scripts\sp_AssignStudentGrade.sql" />
     <Content Include="database scripts\Create Scripts\sp_ChangeCourseAvailability.sql" />
     <Content Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
     <Content Include="database scripts\Create Scripts\sp_ListAvailableCourses.sql" />
