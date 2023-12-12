@@ -5,9 +5,6 @@ Teddy Notes: To Add:   Detail Around API Service Role
 
 WIP
 
-# LiverpoolApp
-University of Liverpool - End of Module Assignment
-
 # Table of Contents
 - [Download the Code](#download-the-code)
 - [Function](#function)
