@@ -1,39 +1,47 @@
--- Stored Procedure to List All Available Courses with Course Titles and Teacher Names
--- Version: 1.1
--- Date Updated: 09 December 2023
--- Author: Theodor Harmse
--- Group: Group C
+DELIMITER //
 
-USE `mydb`;
-
-DELIMITER $$
-
--- Drop existing procedure if it exists
-DROP PROCEDURE IF EXISTS `sp_ListAvailableCourses`$$
-
--- Create the new procedure with an optional search parameter 
-CREATE PROCEDURE `sp_ListAvailableCourses`(IN optional_course_search VARCHAR(255))
+CREATE PROCEDURE `UpdateStudentStatus` (
+    IN p_TeacherID INT,
+    IN p_StudentID INT,
+    IN p_PassStatus BOOLEAN
+)
 BEGIN
+    DECLARE teacherIsTeacher INT;
+    DECLARE studentExists INT;
 
-    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses
-    IF optional_course_search IS NULL OR optional_course_search = '' THEN
-        SELECT 
-            c.CourseID AS Course_ID, 
-            c.Title AS Course_Name, 
-            IFNULL(CONCAT(u.Name), 'TBD - To Be Determined') AS Teacher_Name -- Assuming a valid approach - Course can be avaialble, but teacher not yet assigned. Else, use INNER JOIN
-        FROM courses c
-        LEFT JOIN users u ON c.TeacherID = u.UserID
-        WHERE c.isAvailable = 1;
-    ELSE
-        SELECT 
-            c.CourseID AS Course_ID, 
-            c.Title AS Course_Name, 
-            IFNULL(CONCAT(u.Name), 'TBD - To Be Determined') AS Teacher_Name -- Assuming a valid approach - Course can be avaialble, but teacher not yet assigned. Else, use INNER JOIN
-        FROM courses c
-        LEFT JOIN users u ON c.TeacherID = u.UserID
-        WHERE c.isAvailable = 1 AND (c.Title LIKE CONCAT('%', optional_course_search, '%'));
+    -- Check if the user is a teacher
+    SELECT COUNT(*) INTO teacherIsTeacher
+    FROM users
+    WHERE UserID = p_TeacherID AND RoleID = 2;
+    
+    -- Ensure the user is a teacher
+    IF teacherIsTeacher = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Only Teachers can update student status';
     END IF;
 
-END$$
+    -- Check if the student exists
+    SELECT COUNT(*) INTO studentExists
+    FROM users
+    WHERE UserID = p_StudentID AND RoleID = 3;
+
+    -- If the student does not exist, raise an error
+    IF studentExists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Student does not exist';
+    END IF;
+
+    -- Update the student status
+    UPDATE enrolments
+    SET Mark = p_PassStatus
+    WHERE UserID = p_StudentID;
+
+    IF p_PassStatus THEN
+        SELECT 'Student passed' AS Result;
+    ELSE
+        SELECT 'Student failed' AS Result;
+    END IF;
+
+END //
 
 DELIMITER ;
