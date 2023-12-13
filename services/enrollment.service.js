@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('../config/db.connection');
 
 /**
  * Service function to enroll a student in a course.

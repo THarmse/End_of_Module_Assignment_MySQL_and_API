@@ -56,15 +56,12 @@
     <Content Include="services\course.service.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="services\database.js">
+    <Content Include="config\db.connection.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="services\enrollment.service.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\index.pug" />
-    <Content Include="views\layout.pug" />
-    <Content Include="views\error.pug" />
     <None Include="database scripts\Create Scripts\sp_AssignCoursesToTeacher.sql">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -74,7 +71,6 @@
     <Folder Include="database scripts\Create Scripts\" />
     <Folder Include="database scripts\Insert Scripts\" />
     <Folder Include="config\" />
-    <Folder Include="models\" />
     <Folder Include="controllers\" />
     <Folder Include="services\" />
     <Folder Include="public\" />
@@ -82,7 +78,6 @@
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
-    <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />

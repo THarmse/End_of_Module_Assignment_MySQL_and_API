@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('../config/db.connection');
 
 /**
  * Service function to assign one or more courses to a teacher.
