@@ -69,7 +69,6 @@
   <ItemGroup>
     <Folder Include="database scripts\" />
     <Folder Include="database scripts\Create Scripts\" />
-    <Folder Include="database scripts\Insert Scripts\" />
     <Folder Include="config\" />
     <Folder Include="controllers\" />
     <Folder Include="services\" />
