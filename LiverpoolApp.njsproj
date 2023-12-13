@@ -39,10 +39,10 @@
     <Content Include="controllers\enrollment.controller.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="database scripts\Create Scripts\sp_AssignStudentGrade.sql" />
-    <Content Include="database scripts\Create Scripts\sp_ChangeCourseAvailability.sql" />
-    <Content Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
-    <Content Include="database scripts\Create Scripts\sp_ListAvailableCourses.sql" />
+    <None Include="database scripts\Create Scripts\sp_AssignStudentGrade.sql" />
+    <None Include="database scripts\Create Scripts\sp_ChangeCourseAvailability.sql" />
+    <None Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
+    <None Include="database scripts\Create Scripts\sp_ListAvailableCourses.sql" />
     <Content Include="routes\course.routes.js">
       <SubType>Code</SubType>
     </Content>
@@ -52,18 +52,6 @@
     <Content Include="routes\index.js" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="controllers\role.controller.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="controllers\user.controller.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="routes\role.routes.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="routes\user.routes.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="services\course.service.js">
       <SubType>Code</SubType>
     </Content>

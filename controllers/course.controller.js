@@ -45,3 +45,20 @@ exports.listAvailableCourses = (req, res) => {
 };
 
 
+// Controller method to change the availability of a course
+exports.changeCourseAvailability = (req, res) => {
+    // Extracting adminUserId and courseId from the request body
+    const { adminUserId, courseId, newAvailability } = req.body;
+
+    // Call the service function, providing the necessary parameters and a callback for handling the response
+    courseService.changeCourseAvailability(adminUserId, courseId, newAvailability, (error, data) => {
+        if (error) {
+            // If an error occurs, send a 500 Internal Server Error response with the error message
+            res.status(500).send({ message: error.message });
+        } else {
+            // On successful change, send back the data received from the service layer
+            res.send(data);
+        }
+    });
+};
+

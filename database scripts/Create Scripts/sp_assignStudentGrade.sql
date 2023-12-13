@@ -1,5 +1,5 @@
--- Stored Procedure to Update Student's Pass/Fail Grade Status
--- Version: 1.0
+-- Stored Procedure to Update Student's Grade
+-- Version: 1.2
 -- Date Updated: 12 December 2023
 -- Author: Yumi 
 -- Peer Review: Theodor Harmse
@@ -16,13 +16,14 @@ DROP PROCEDURE IF EXISTS `sp_AssignStudentGrade`$$
 CREATE PROCEDURE `sp_AssignStudentGrade`(
     IN p_TeacherID INT, 
     IN p_StudentID INT,
-    IN p_PassStatus BOOLEAN,
+    IN p_CourseID INT,
+    IN p_Grade TINYINT,         
     OUT p_ResultMessage VARCHAR(255),
     OUT p_AffectedRows INT
 )
 sp:BEGIN
     DECLARE teacherIsTeacher INT;
-    DECLARE studentExists INT;
+    DECLARE studentEnrolled INT;
 
     -- Initialize p_ResultMessage and p_AffectedRows
     SET p_ResultMessage = '';
@@ -31,7 +32,7 @@ sp:BEGIN
     -- Check if the user is a teacher
     SELECT COUNT(*) INTO teacherIsTeacher
     FROM users
-    WHERE UserID = p_TeacherID AND RoleID = 2; --  Teacher Role ID is 2
+    WHERE UserID = p_TeacherID AND RoleID = 2; -- Teacher Role ID is 2
 
     -- If the user is not a teacher, set result message and exit
     IF teacherIsTeacher = 0 THEN
@@ -39,31 +40,33 @@ sp:BEGIN
         LEAVE sp;
     END IF;
 
-    -- Check if the student exists
-    SELECT COUNT(*) INTO studentExists
-    FROM users
-    WHERE UserID = p_StudentID AND RoleID = 3; -- Student Role ID is 3
+    -- Check if the student is enrolled in the specified course
+    SELECT COUNT(*) INTO studentEnrolled
+    FROM enrolments
+    WHERE UserID = p_StudentID AND CourseID = p_CourseID;
 
-    -- If the student does not exist, set result message and exit
-    IF studentExists = 0 THEN
-        SET p_ResultMessage = 'Transaction Error: Student does not exist.';
+    -- If the student is not enrolled in the course, set result message and exit
+    IF studentEnrolled = 0 THEN
+        SET p_ResultMessage = 'Transaction Error: Student is not enrolled in the specified course.';
         LEAVE sp;
     END IF;
 
-    -- Update the student status
+    -- Validate grade (must be between 0 and 100)
+    IF p_Grade < 0 OR p_Grade > 100 THEN
+        SET p_ResultMessage = 'Transaction Error: Invalid grade. Must be between 0 and 100.';
+        LEAVE sp;
+    END IF;
+
+    -- Update the student's grade for the specified course
     UPDATE enrolments
-    SET Mark = p_PassStatus
-    WHERE UserID = p_StudentID;
+    SET Mark = p_Grade
+    WHERE UserID = p_StudentID AND CourseID = p_CourseID;
 
     -- Capture the number of affected rows
     SET p_AffectedRows = ROW_COUNT();
 
     -- Set success result message
-    IF p_PassStatus THEN
-        SET p_ResultMessage = 'Success: Student status updated to passed.';
-    ELSE
-        SET p_ResultMessage = 'Success: Student status updated to failed.';
-    END IF;
+    SET p_ResultMessage = CONCAT('Success: Student`s grade updated to ', p_Grade, '.');
 
 END$$
 

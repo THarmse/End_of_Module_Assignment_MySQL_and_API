@@ -16,3 +16,24 @@ exports.enrollStudentInCourse = (req, res) => {
         }
     });
 };
+
+/**
+ * Controller method to handle the assignment of a numeric grade to a student for a specific course.
+ * It extracts the teacher's ID, student's ID, course ID, and grade from the request body
+ * and passes these parameters to the service layer.
+ */
+exports.assignStudentGrade = (req, res) => {
+    // Extracting teacherId, studentId, courseId, and grade from the request body
+    const { teacherId, studentId, courseId, grade } = req.body;
+
+    // Call the service function to assign a numeric grade to a student for the specified course
+    enrollmentService.assignStudentGrade(teacherId, studentId, courseId, grade, (error, data) => {
+        if (error) {
+            // If an error occurs during the procedure call, respond with a 500 Internal Server Error
+            res.status(500).send({ message: error.message });
+        } else {
+            // On successful grade assignment, send back the data received from the service layer
+            res.send(data);
+        }
+    });
+};
