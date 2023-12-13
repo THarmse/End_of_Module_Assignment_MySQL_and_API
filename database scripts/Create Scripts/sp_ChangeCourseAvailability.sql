@@ -1,49 +1,74 @@
-DELIMITER //
+-- Stored Procedure to Change Course Availability
+-- Version: 1.0
+-- Date Updated: 13 December 2023
+-- Author: Yumi
+-- Peer Review: Theodor Harmse
+-- Group: Group C
 
-CREATE PROCEDURE `changeCourseAvailablity` (
-    IN p_AdminUserID INT,
-    IN p_CourseID INT
+USE `mydb`;
+
+DELIMITER $$
+
+-- Drop existing procedure if it exists
+DROP PROCEDURE IF EXISTS `sp_ChangeCourseAvailability`$$
+
+-- Create the new procedure
+CREATE PROCEDURE `sp_ChangeCourseAvailability`(
+    IN p_AdminUserID INT, 
+    IN p_CourseID INT,
+    OUT p_ResultMessage VARCHAR(255),
+    OUT p_AffectedRows INT
 )
-BEGIN
+sp:BEGIN
     DECLARE userIsAdmin INT;
+    DECLARE courseExists INT;
     DECLARE courseIsAvailable INT;
+
+    -- Initialize p_ResultMessage and p_AffectedRows
+    SET p_ResultMessage = '';
+    SET p_AffectedRows = 0;
 
     -- Check if the user is an admin
     SELECT COUNT(*) INTO userIsAdmin
     FROM users
     WHERE UserID = p_AdminUserID AND RoleID = 1; -- Admin Role ID is 1
-    
-    -- Ensure the user is an admin
+
+    -- If the user is not an admin, set result message and exit
     IF userIsAdmin = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Only Admin can change course availability';
+        SET p_ResultMessage = 'Transaction Error: Only admins can change course availability.';
+        LEAVE sp;
     END IF;
 
-    -- Check the availability of a course
+    -- Check if the course exists
+    SELECT COUNT(*) INTO courseExists
+    FROM courses
+    WHERE CourseID = p_CourseID;
+
+    -- If the course does not exist, set result message and exit
+    IF courseExists = 0 THEN
+        SET p_ResultMessage = 'Transaction Error: Course does not exist.';
+        LEAVE sp;
+    END IF;
+
+    -- Check the current availability of the course
     SELECT isAvailable INTO courseIsAvailable
     FROM courses
     WHERE CourseID = p_CourseID;
 
-    -- If the user is an admin and the course is unavailable, enable the availability of a course
-    IF userIsAdmin = 1 AND courseIsAvailable = 0 THEN
-        UPDATE courses
-        SET isAvailable = 1
-        WHERE CourseID = p_CourseID;
-        
-        SELECT 'Course availability enabled' AS Result;
+    -- Toggle the availability of the course
+    UPDATE courses
+    SET isAvailable = NOT courseIsAvailable
+    WHERE CourseID = p_CourseID;
 
-    -- If the user is an admin and the course is available, disable the availability of a course
-    ELSEIF userIsAdmin = 1 AND courseIsAvailable = 1 THEN
-        UPDATE courses
-        SET isAvailable = 0
-        WHERE CourseID = p_CourseID;
-        
-        SELECT 'Course availability disabled' AS Result;
-
+    -- Set success result message
+    IF NOT courseIsAvailable THEN
+        SET p_ResultMessage = 'Success: Course availability enabled.';
     ELSE
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Invalid operation';
+        SET p_ResultMessage = 'Success: Course availability disabled.';
     END IF;
-END //
+
+    -- Capture the number of affected rows
+    SET p_AffectedRows = ROW_COUNT();
+END$$
 
 DELIMITER ;

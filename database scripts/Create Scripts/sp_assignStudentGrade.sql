@@ -16,13 +16,15 @@ CREATE PROCEDURE `sp_AssignStudentGrade`(
     IN p_TeacherID INT, 
     IN p_StudentID INT,
     IN p_PassStatus BOOLEAN,
+    OUT p_ResultMessage VARCHAR(255),
     OUT p_AffectedRows INT
 )
 sp:BEGIN
     DECLARE teacherIsTeacher INT;
     DECLARE studentExists INT;
 
-    -- Initialize p_AffectedRows
+    -- Initialize p_ResultMessage and p_AffectedRows
+    SET p_ResultMessage = '';
     SET p_AffectedRows = 0;
 
     -- Check if the user is a teacher
@@ -30,10 +32,9 @@ sp:BEGIN
     FROM users
     WHERE UserID = p_TeacherID AND RoleID = 2; --  Teacher Role ID is 2
 
-    -- If the user is not a teacher, raise an error
+    -- If the user is not a teacher, set result message and exit
     IF teacherIsTeacher = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Transaction Error: Only teachers can update student grades.';
+        SET p_ResultMessage = 'Transaction Error: Only teachers can update student grades.';
         LEAVE sp;
     END IF;
 
@@ -42,10 +43,9 @@ sp:BEGIN
     FROM users
     WHERE UserID = p_StudentID AND RoleID = 3; -- Student Role ID is 3
 
-    -- If the student does not exist, raise an error
+    -- If the student does not exist, set result message and exit
     IF studentExists = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Transaction Error: Student does not exist.';
+        SET p_ResultMessage = 'Transaction Error: Student does not exist.';
         LEAVE sp;
     END IF;
 
@@ -57,11 +57,13 @@ sp:BEGIN
     -- Capture the number of affected rows
     SET p_AffectedRows = ROW_COUNT();
 
-    -- In case no rows are affected, raise an error
-    IF p_AffectedRows = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Transaction Error: No update performed.';
+    -- Set success result message
+    IF p_PassStatus THEN
+        SET p_ResultMessage = 'Success: Student status updated to passed.';
+    ELSE
+        SET p_ResultMessage = 'Success: Student status updated to failed.';
     END IF;
+
 END$$
 
 DELIMITER ;
