@@ -17,6 +17,7 @@ WIP
 1. Clone the repository using the following command  
 git clone https://github.com/THarmse/End_of_Module_Assignment_MySQL_and_API.git
 
+NOTE :   @YUMI :  Pleaes add npm install and all other setup
 
 ## Function
 * Enable/Disable Course Availability (Admins):
