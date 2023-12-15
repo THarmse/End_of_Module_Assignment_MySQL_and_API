@@ -18,6 +18,9 @@ WIP
 git clone https://github.com/THarmse/End_of_Module_Assignment_MySQL_and_API.git
 
 NOTE :   @YUMI :  Pleaes add npm install and all other setup
+NOTE:  Add detail to update config file to localhost,Service Account username and password and ensure db name is as per mySQL
+NOTE:  Execute the stored procedures as per the CodeRepo all 5 of them
+
 
 ## Function
 * Enable/Disable Course Availability (Admins):
