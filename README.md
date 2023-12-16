@@ -61,37 +61,37 @@ NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841
 * Access control is implemented to ensure only authorized users can perform specific actions. For example, only teachers can pass/fail a student.
 
 ## Directory Structure
-.
-    ├── config/
-    │   ├── db.config.js
-    │   ├── db.connection.js
-    ├── controllers
-        │   ├── course.controller.js
-        │   ├── enrollment.controller.js
-    ├── database scripts/Create Scripts
-        │   ├── sp_AssignCoursesToTeacher.sql
-        │   ├── sp_ChangeCourseAvailability.sql
-        │   ├── sp_EnrollStudentInCourse.sql
-        │   ├── sp_ListAvailableCourses.sql
-        │   ├── sp_assignStudentGrade.sql
-    ├── public/stylesheets
-        │   ├── main.css
-    ├── routes
-        │   ├── course.routes.js
-        │   ├── enrollment.routes.js
-    ├── services
-        │   ├── course.service.js
-        │   ├── enrollment.service.js
-    ├── .gitattributes
-    ├── .gitignore
-    ├── LiverpoolApp.njsproj
-    ├── LiverpoolApp.sln
-    ├── README.md
-    ├── Web.Debug.config
-    ├── Web.config
-    ├── app.js
-    ├── package-lock.json
-    └──package.json
+├── config\
+│   ├── db.config.js\
+│   ├── db.connection.js\
+├── controllers\
+│   ├── course.controller.js\
+│   ├── enrollment.controller.js\
+├── database scripts\Create Scripts\
+│   ├── sp_AssignCoursesToTeacher.sql\
+│   ├── sp_ChangeCourseAvailability.sql\
+│   ├── sp_EnrollStudentInCourse.sql\
+│   ├── sp_ListAvailableCourses.sql\
+│   ├── sp_assignStudentGrade.sql\
+├── public\stylesheets\
+│   ├── main.css\
+├── routes\
+│   ├── course.routes.js\
+│   ├── enrollment.routes.js\
+├── services\
+│   ├── course.service.js\
+│   ├── enrollment.service.js\
+├── .gitattributes\
+├── .gitignore\
+├── LiverpoolApp.njsproj\
+├── LiverpoolApp.sln\
+├── README.md\
+├── Web.Debug.config\
+├── Web.config\
+├── app.js\
+├── package-lock.json\
+└── package.json
+
 
 ## Unit test
 
