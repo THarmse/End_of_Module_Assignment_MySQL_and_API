@@ -1,10 +1,7 @@
 # A COMPREHENSIVE APPROACH TO API DEVELOPMENT: MYSQL STORED PROCEDURES, NODEJS, AND ROLE MANAGEMENT 
 This collaborative project focuses on constructing SQL queries, developing a business logic layer with NodeJS and Stored Procedures, and implementing best practices in database connectivity and role-based access control. Set within a fictitious college scenario, it aims to meet the diverse needs of administrators, teachers, students, and courses.
 
-
 Teddy Notes: To Add:   Detail Around API Service Role
-
-WIP
 
 # Table of Contents
 - [Download the Code](#download-the-code)
@@ -49,8 +46,6 @@ NOTE:  Add detail to update config file to localhost,Service Account username an
 NOTE:  Execute the stored procedures as per the CodeRepo all 5 of them
 NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
 
-
-
 ## Function
 * Enable/Disable Course Availability (Admins):
 * Admins should be able to enable or disable the availability of a course.
@@ -66,7 +61,37 @@ NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841
 * Access control is implemented to ensure only authorized users can perform specific actions. For example, only teachers can pass/fail a student.
 
 ## Directory Structure
-
+.
+    ├── config/
+    │   ├── db.config.js
+    │   ├── db.connection.js
+    ├── controllers
+        │   ├── course.controller.js
+        │   ├── enrollment.controller.js
+    ├── database scripts/Create Scripts
+        │   ├── sp_AssignCoursesToTeacher.sql
+        │   ├── sp_ChangeCourseAvailability.sql
+        │   ├── sp_EnrollStudentInCourse.sql
+        │   ├── sp_ListAvailableCourses.sql
+        │   ├── sp_assignStudentGrade.sql
+    ├── public/stylesheets
+        │   ├── main.css
+    ├── routes
+        │   ├── course.routes.js
+        │   ├── enrollment.routes.js
+    ├── services
+        │   ├── course.service.js
+        │   ├── enrollment.service.js
+    ├── .gitattributes
+    ├── .gitignore
+    ├── LiverpoolApp.njsproj
+    ├── LiverpoolApp.sln
+    ├── README.md
+    ├── Web.Debug.config
+    ├── Web.config
+    ├── app.js
+    ├── package-lock.json
+    └──package.json
 
 ## Unit test
 
