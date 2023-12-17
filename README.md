@@ -39,7 +39,7 @@ mysql --version
 
 ## Database Import
 1. The Database dumps are located in the "database scripts/Database Import/Dumps" folder
-2. Import these dumps to for "mydb" as the database name
+2. Import these dumps for "mydb" as the database name
 3. The Stored Procedures are part of the database dumps, but alternatively, the below can be used
 
 ## Database Stored Procedures (Optional, if Database Import was not used)
