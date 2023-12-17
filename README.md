@@ -10,13 +10,13 @@ Teddy Notes: To Add:   Detail Around API Service Role
 - [Run the Project](#run-the-project)
 - [Function](#function)
 - [Directory Structure](#directory-structure)
-- [Unit test](#unit-test)
+- [Unit Test Using Postman](#unit-test-using-postman)
 
 
 ## Preparation
 
 1. Clone the repository
-- Use the following command\
+- Open a command prompt or terminal and run the following command\
 git clone https://github.com/THarmse/End_of_Module_Assignment_MySQL_and_API.git
 
 2. Install Dependencies
@@ -30,8 +30,9 @@ npm install
 mysql --version
 
 4. Download and install Postman:
-- [Postman Downloads](https://www.postman.com/downloads/)
-- After installation, start the MySQL server. 
+- Download and install Postman from the official website\
+  [Postman Downloads](https://www.postman.com/downloads/)
+- After installation, start the MySQL server 
 - Open a command prompt or terminal and run the following command to verify that MySQL is installed and running\
 mysql --version
 - Access the Postman collection for this project using the (Guest access):https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
@@ -44,7 +45,7 @@ mysql --version
 
 ## Run the Project
 1. Start the Server:
-Run the following command in your terminal to start the Node.js server\
+Open a command prompt or terminal and run the following command to start the Node.js server\
 npm start
    
 ----
@@ -103,8 +104,11 @@ NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841
 
 
 
-## Unit test
-
+## Unit test Using Postman
+1. Select Collection "Liverpool - Database and API Workspace".
+2. Selct certain requests to test
+3. Click "Send" button to execute the request with the configured environment variables.
+4. Observe the response in the "Body" section to ensure it matches the expected output.
 
 
 
