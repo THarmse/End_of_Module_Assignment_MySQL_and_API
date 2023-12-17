@@ -27,7 +27,7 @@ sp: BEGIN
 
     -- If the user is not a student, set result message
     IF studentRole = 0 THEN
-        SET p_ResultMessage = 'Transaction Error: Only students use this function.';
+        SET p_ResultMessage = 'Transaction Error: Only students can use this function.';
         LEAVE sp;
     END IF;
 
