@@ -112,9 +112,6 @@ node app.js
     │   ├──Database Import
     │   │   └──Dumps    
     │   │       └── Dump.sql
-    ├── public
-    │   ├──stylesheets
-    │   │   └── main.css
     ├── routes
     │   ├── course.routes.js
     │   └── enrollment.routes.js
