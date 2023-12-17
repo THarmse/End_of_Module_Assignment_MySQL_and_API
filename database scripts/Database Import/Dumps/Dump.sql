@@ -18,6 +18,113 @@ USE `mydb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `courses`
+--
+
+DROP TABLE IF EXISTS `courses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `courses` (
+  `CourseID` int NOT NULL AUTO_INCREMENT,
+  `Title` varchar(45) DEFAULT NULL,
+  `TeacherID` int DEFAULT '0',
+  `isAvailable` tinyint DEFAULT '0',
+  PRIMARY KEY (`CourseID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses`
+--
+
+LOCK TABLES `courses` WRITE;
+/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,'Data structures',3,0),(2,'Databases',5,1),(3,'Machine learning',0,0),(4,'Network security',0,0),(5,'Computer graphics',3,1),(6,'Computer programming I',3,1),(7,'Game development',3,0),(8,'Computer algorithms',0,0),(9,'Computer programming II',3,0),(10,'Project management',0,0);
+/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `enrolments`
+--
+
+DROP TABLE IF EXISTS `enrolments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `enrolments` (
+  `EnrolmentID` int NOT NULL AUTO_INCREMENT,
+  `Mark` tinyint DEFAULT NULL,
+  `CourseID` int NOT NULL,
+  `UserID` int NOT NULL,
+  PRIMARY KEY (`EnrolmentID`,`CourseID`,`UserID`),
+  KEY `fk_Enrolments_Courses_idx` (`CourseID`),
+  KEY `fk_Enrolments_Users1_idx` (`UserID`),
+  CONSTRAINT `fk_Enrolments_Courses` FOREIGN KEY (`CourseID`) REFERENCES `courses` (`CourseID`),
+  CONSTRAINT `fk_Enrolments_Users1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `enrolments`
+--
+
+LOCK TABLES `enrolments` WRITE;
+/*!40000 ALTER TABLE `enrolments` DISABLE KEYS */;
+INSERT INTO `enrolments` VALUES (12,85,1,16),(13,NULL,5,10),(14,NULL,9,10),(15,NULL,10,10),(16,NULL,6,10);
+/*!40000 ALTER TABLE `enrolments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles` (
+  `RoleID` int NOT NULL AUTO_INCREMENT,
+  `Role` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Admin'),(2,'Teacher'),(3,'Student');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `UserID` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `RoleID` int NOT NULL,
+  PRIMARY KEY (`UserID`,`RoleID`),
+  KEY `fk_Users_Roles1_idx` (`RoleID`),
+  CONSTRAINT `fk_Users_Roles1` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Clark Taylor',1),(2,'Natalie Armstrong',1),(3,'Max Barrett',2),(4,'Alisa Barnes',2),(5,'Catherine Nelson',2),(6,'Ted Casey',2),(7,'Dainton Henderson',2),(8,'Sarah Howard',2),(9,'Carina Higgins',2),(10,'Nicholas Ross',3),(11,'Adrianna Hall',3),(12,'Kelvin Murray',3),(13,'Kate Wilson',3),(14,'Marcus Johnson',3),(15,'Valeria Cooper',3),(16,'James Riley',3),(17,'Bruce Stewart',3),(18,'Alexia Barrett',3),(19,'Adam Perkins',3),(20,'Sam Foster',3),(21,'Charlotte Howard',3),(22,'Violet West',3),(23,'Brianna Brooks',3),(24,'Rubie Roberts',3),(25,'Jessica Perkins',3),(26,'Anna Roberts',3),(27,'Sabrina Crawford',3),(28,'Luke Murphy',3),(29,'Miley Cunningham',3),(30,'Julia Scott',3);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'mydb'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `sp_AssignCoursesToTeacher` */;
@@ -150,7 +257,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AssignStudentGrade`(
     IN p_TeacherID INT, 
     IN p_StudentID INT,
     IN p_CourseID INT,
-    IN p_Grade TINYINT,          -- Changed from p_PassStatus to p_Grade
+    IN p_Grade TINYINT,         
     OUT p_ResultMessage VARCHAR(255),
     OUT p_AffectedRows INT
 )
@@ -254,7 +361,7 @@ sp:BEGIN
         LEAVE sp;
     END IF;
     
-        -- Validate new availability (must be 0 or 1)
+        -- Validate new availability (must be 0 or 1 as TinyInt is used and not boolean in db)
     IF p_NewAvailability NOT IN (0, 1) THEN
         SET p_ResultMessage = 'Transaction Error: Invalid availability value. Must be 0 or 1.';
         LEAVE sp;
@@ -389,11 +496,11 @@ sp: BEGIN
 
     -- If the user is not a student, set result message
     IF studentRole = 0 THEN
-        SET p_ResultMessage = 'Transaction Error: Only students use this function.';
+        SET p_ResultMessage = 'Transaction Error: Only students can use this function.';
         LEAVE sp;
     END IF;
 
-    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses
+    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses 
     IF optional_course_search IS NULL OR optional_course_search = '' THEN
         SELECT 
             c.CourseID AS Course_ID, 
@@ -428,4 +535,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-17 18:34:09
+-- Dump completed on 2023-12-17 21:29:40

@@ -45,11 +45,7 @@
     <None Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
     <None Include="database scripts\Create Scripts\sp_ListAvailableCourses.sql" />
     <Content Include="database scripts\Create Scripts\api_to_mysql_ServiceAccount.sql" />
-    <Content Include="database scripts\Database Import\Dumps\mydb_courses.sql" />
-    <Content Include="database scripts\Database Import\Dumps\mydb_enrolments.sql" />
-    <Content Include="database scripts\Database Import\Dumps\mydb_roles.sql" />
-    <Content Include="database scripts\Database Import\Dumps\mydb_routines.sql" />
-    <Content Include="database scripts\Database Import\Dumps\mydb_users.sql" />
+    <Content Include="database scripts\Database Import\Dumps\Dump.sql" />
     <Content Include="routes\course.routes.js">
       <SubType>Code</SubType>
     </Content>

@@ -3,8 +3,11 @@ This collaborative project focuses on constructing SQL queries, developing a bus
 
 # Table of Contents
 - [Set Up](#set-up)
-- [Run the Project](#run-the-project)
-- [Function](#function)
+- [Database Import](#database-import)
+- [Database Stored Procedures](#database-stored-procedures)
+- [Create Service Account](#create-service-account)
+- [Run the API](#run-the-api)
+- [API Functionality](#api-functionality)
 - [Unit Test Using Postman](#unit-test-using-postman)
 - [Directory Structure](#directory-structure)
 
@@ -35,11 +38,12 @@ npm install
 mysql --version
 
 ## Database Import
-1. The Database dumps are located in the "database scripts/Database Import/Dumps" folder
-2. Import these dumps for "mydb" as the database name
-3. The Stored Procedures are part of the database dumps, but alternatively, the below can be used
+1. The Database dump is located in the "database scripts/Database Import/Dumps" folder
+2. Import this dumps for "mydb" as the database name. Ensure to import using the "Self-Contained File" option.
+3. The Stored Procedures are part of the database dump, but alternatively, the below can be used
 
-## Database Stored Procedures (Optional, if Database Import was not used)
+## Database Stored Procedures 
+Note: (Optional, if Database Import was not done)
 1. Open files in the "database scripts/Create Scripts" folder
    sp_AssignCoursesToTeacher.sql
    sp_assignStudentGrade.sql
@@ -62,7 +66,7 @@ node app.js
 2. Alternatively, run from Visual Studio by, typing node app.js in the Developer Powershell
 3. Note: No front end will be shown as this is an API and Views have been removed/excluded. 
 
-## Function
+## API Functionality
 * Enable/Disable Course Availability (Admins):
     * Admins should be able to enable or disable the availability of a course.
 * Assign Courses to Teachers (Admins):
@@ -107,11 +111,7 @@ node app.js
     │   │   └── sp_assignStudentGrade.sql
     │   ├──Database Import
     │   │   └──Dumps    
-    │   │       ├── mydb_courses.sql
-    │   │       ├── mydb_enrolments.sql
-    │   │       ├── mydb_roles.sql
-    │   │       ├── mydb_routines.sql
-    │   │       └── mydb_users.sql
+    │   │       └── Dump.sql
     ├── public
     │   ├──stylesheets
     │   │   └── main.css
