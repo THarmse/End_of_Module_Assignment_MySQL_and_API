@@ -78,6 +78,7 @@
     <Folder Include="controllers\" />
     <Folder Include="database scripts\Database Import\" />
     <Folder Include="database scripts\Database Import\Dumps\" />
+    <Folder Include="testing\" />
     <Folder Include="services\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
@@ -86,6 +87,7 @@
     <Folder Include="routes\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="testing\Liverpool - Database and API.postman_collection.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
   </ItemGroup>

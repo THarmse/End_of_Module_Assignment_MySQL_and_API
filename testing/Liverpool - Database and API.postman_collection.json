@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "b229f0a7-8388-46b6-bb0a-6f4a86f95679",
+		"name": "Liverpool - Database and API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8837553",
+		"_collection_link": "https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&source=collection_link&creator=8837553"
+	},
+	"item": [
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "1. Admins should be able to enable or disable the availability of a course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"adminUserId\": 1,     \r\n    \"courseId\": 2,          \r\n    \"newAvailability\": 1    // 1 for available, 0 for not available\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courses/change-course-availability",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courses",
+								"change-course-availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Assign Courses to Teacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"adminUserId\": 2,  \r\n  \"courseIds\": [5,7],  \r\n  \"teacherUserId\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courses/assign-courses-to-teacher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courses",
+								"assign-courses-to-teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Students can browse and list all the available courses and see the course title and course teacher’s name.",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"studentUserId\": 10,  \r\n    \"optional_course_search\": \"computer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courses/list-available-courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courses",
+								"list-available-courses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enrollments",
+			"item": [
+				{
+					"name": "4. Students can enrol in a course. Students should not be able to enrol in a course more than once at each time.",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"studentUserId\": 10,  \r\n  \"courseId\": 7\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/enrollments/enroll-student-in-course",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"enrollments",
+								"enroll-student-in-course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Teachers can fail or pass a student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teacherId\": 4,      \r\n    \"studentId\": 16,      \r\n    \"courseId\": 1,       \r\n    \"grade\": 85\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/enrollments/assign-student-grade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"enrollments",
+								"assign-student-grade"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
