@@ -31,7 +31,7 @@ sp: BEGIN
         LEAVE sp;
     END IF;
 
-    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses
+    -- If course search term is provided, filter courses based on the term; otherwise, list all available courses 
     IF optional_course_search IS NULL OR optional_course_search = '' THEN
         SELECT 
             c.CourseID AS Course_ID, 
