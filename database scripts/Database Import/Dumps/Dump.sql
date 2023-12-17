@@ -60,7 +60,7 @@ CREATE TABLE `enrolments` (
   KEY `fk_Enrolments_Users1_idx` (`UserID`),
   CONSTRAINT `fk_Enrolments_Courses` FOREIGN KEY (`CourseID`) REFERENCES `courses` (`CourseID`),
   CONSTRAINT `fk_Enrolments_Users1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `enrolments` (
 
 LOCK TABLES `enrolments` WRITE;
 /*!40000 ALTER TABLE `enrolments` DISABLE KEYS */;
-INSERT INTO `enrolments` VALUES (12,85,1,16),(13,NULL,5,10),(14,NULL,9,10),(15,NULL,10,10),(16,NULL,6,10);
+INSERT INTO `enrolments` VALUES (12,85,1,16),(13,NULL,5,10),(14,NULL,9,10),(15,NULL,10,10),(16,NULL,6,10),(17,NULL,5,11);
 /*!40000 ALTER TABLE `enrolments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,9 +257,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AssignStudentGrade`(
     IN p_TeacherID INT, 
     IN p_StudentID INT,
     IN p_CourseID INT,
-    IN p_Grade TINYINT,         
-    OUT p_ResultMessage VARCHAR(255),
-    OUT p_AffectedRows INT
+    IN p_Grade TINYINT,  
+    OUT p_AffectedRows INT,
+    OUT p_ResultMessage VARCHAR(255)
+
 )
 sp:BEGIN
     DECLARE teacherIsTeacher INT;
@@ -328,8 +329,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ChangeCourseAvailability`(
     IN p_AdminUserID INT, 
     IN p_CourseID INT,
     IN p_NewAvailability TINYINT,  
-    OUT p_ResultMessage VARCHAR(255),
-    OUT p_AffectedRows INT
+    OUT p_AffectedRows INT,
+	OUT p_ResultMessage VARCHAR(255)
 )
 sp:BEGIN
     DECLARE userIsAdmin INT;
@@ -371,6 +372,9 @@ sp:BEGIN
     UPDATE courses
     SET isAvailable = p_NewAvailability
     WHERE CourseID = p_CourseID;
+    
+	-- Capture the number of affected rows
+    SET p_AffectedRows = ROW_COUNT();
 
     -- Set success result message based on the new availability
     IF p_NewAvailability = 1 THEN
@@ -379,8 +383,6 @@ sp:BEGIN
         SET p_ResultMessage = 'Success: Course availability disabled.';
     END IF;
 
-    -- Capture the number of affected rows
-    SET p_AffectedRows = ROW_COUNT();
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -535,4 +537,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-17 21:29:40
+-- Dump completed on 2023-12-18  0:28:53
