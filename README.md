@@ -104,6 +104,13 @@ node app.js
     │   │   ├── sp_EnrollStudentInCourse.sql
     │   │   ├── sp_ListAvailableCourses.sql
     │   │   └── sp_assignStudentGrade.sql
+    │   ├──Database Import
+    │   │   └──Dumps    
+    │   │       ├── mydb_courses.sql
+    │   │       ├── mydb_enrolments.sql
+    │   │       ├── mydb_roles.sql
+    │   │       ├── mydb_routines.sql
+    │   │       └── mydb_users.sql
     ├── public
     │   ├──stylesheets
     │   │   └── main.css
