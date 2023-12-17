@@ -71,6 +71,7 @@
     <Folder Include="database scripts\Create Scripts\" />
     <Folder Include="config\" />
     <Folder Include="controllers\" />
+    <Folder Include="database scripts\Database Import\" />
     <Folder Include="services\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
