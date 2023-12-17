@@ -50,7 +50,8 @@ mysql --version
 
 
 ## Create Service Account
-1. Open api_to_mysql_ServiceAccount.sql from the "database scripts/Create Scripts" folder
+1. Open the file in the "database scripts/Create Scripts" folder
+   api_to_mysql_ServiceAccount.sql
 2. Execute this script in MySQL Workbench to create the "API" Service Account
 3. Ensure that db.config.js is in line with this script Username/Password, should you opt to change the password [Set Up](#set-up)
   
