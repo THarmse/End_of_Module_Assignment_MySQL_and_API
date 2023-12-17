@@ -6,6 +6,10 @@
 
 USE `mydb`;
 
+-- Check if the 'API' user exists and drop it
+DROP USER IF EXISTS 'API'@'localhost';
+
+
 -- Create the 'API' user with a specified password  (Ensure to update in db.config.js afterwads)
 CREATE USER 'API'@'localhost' IDENTIFIED BY 'MyPassword@123';
 

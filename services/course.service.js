@@ -71,8 +71,6 @@ exports.listAvailableCourses = (studentUserId, optional_course_search, callback)
 
 
 
-
-
 /**
  * Service function to change the availability of a course.
  * This function executes the 'sp_ChangeCourseAvailability' stored procedure,

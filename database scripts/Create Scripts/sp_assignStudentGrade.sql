@@ -17,9 +17,10 @@ CREATE PROCEDURE `sp_AssignStudentGrade`(
     IN p_TeacherID INT, 
     IN p_StudentID INT,
     IN p_CourseID INT,
-    IN p_Grade TINYINT,         
-    OUT p_ResultMessage VARCHAR(255),
-    OUT p_AffectedRows INT
+    IN p_Grade TINYINT,  
+    OUT p_AffectedRows INT,
+    OUT p_ResultMessage VARCHAR(255)
+
 )
 sp:BEGIN
     DECLARE teacherIsTeacher INT;

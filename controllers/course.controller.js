@@ -49,8 +49,6 @@ exports.listAvailableCourses = (req, res) => {
 };
 
 
-
-
 // Controller method to change the availability of a course
 exports.changeCourseAvailability = (req, res) => {
     // Extracting adminUserId and courseId from the request body

@@ -58,6 +58,7 @@ Note: (Optional, if Database Import was not done)
    api_to_mysql_ServiceAccount.sql
 2. Execute this script in MySQL Workbench to create the "API" Service Account
 3. Ensure that db.config.js is in line with this script Username/Password, should you opt to change the password [Set Up](#set-up)
+4. Note: Whenever a Stored Procedure is dropped and Recreated, re-execute api_to_mysql_serviceAccount.sql
   
 ## Run the API
 1. Start the API:

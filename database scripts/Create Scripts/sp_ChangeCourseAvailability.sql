@@ -60,6 +60,9 @@ sp:BEGIN
     UPDATE courses
     SET isAvailable = p_NewAvailability
     WHERE CourseID = p_CourseID;
+    
+	-- Capture the number of affected rows
+    SET p_AffectedRows = ROW_COUNT();
 
     -- Set success result message based on the new availability
     IF p_NewAvailability = 1 THEN
@@ -68,8 +71,6 @@ sp:BEGIN
         SET p_ResultMessage = 'Success: Course availability disabled.';
     END IF;
 
-    -- Capture the number of affected rows
-    SET p_AffectedRows = ROW_COUNT();
 END$$
 
 DELIMITER ;
