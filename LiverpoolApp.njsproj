@@ -44,6 +44,7 @@
     <None Include="database scripts\Create Scripts\sp_ChangeCourseAvailability.sql" />
     <None Include="database scripts\Create Scripts\sp_EnrollStudentInCourse.sql" />
     <None Include="database scripts\Create Scripts\sp_ListAvailableCourses.sql" />
+    <Content Include="database scripts\Create Scripts\api_to_mysql_ServiceAccount.sql" />
     <Content Include="routes\course.routes.js">
       <SubType>Code</SubType>
     </Content>

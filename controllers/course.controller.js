@@ -29,20 +29,26 @@ exports.assignCoursesToTeacher = (req, res) => {
 
 // Controller method to list available courses with an optional search filter
 exports.listAvailableCourses = (req, res) => {
-    // Extracting optional_course_search from the request body, using brackets for optional
-    const { optional_course_search } = req.body;
+    // Extracting studentUserId and optional_course_search from the request body
+    const { studentUserId, optional_course_search } = req.body;
 
-    // Call the service function, providing the optional search term and a callback for handling the response
-    courseService.listAvailableCourses(optional_course_search, (error, data) => {
+    // Call the service function, providing the student's user ID and the optional search term
+    // and a callback for handling the response
+    courseService.listAvailableCourses(studentUserId, optional_course_search, (error, resultMessage, data) => {
         if (error) {
             // If an error occurs, send a 500 Internal Server Error response with the error message
             res.status(500).send({ message: error.message });
+        } else if (resultMessage) {
+            // If the stored procedure returned a result message, send a 200 OK response with the message
+            res.status(200).send({ message: resultMessage });
         } else {
             // On successful retrieval, send back the data received from the service layer
             res.send(data);
         }
     });
 };
+
+
 
 
 // Controller method to change the availability of a course
