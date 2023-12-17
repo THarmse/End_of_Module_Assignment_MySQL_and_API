@@ -1,10 +1,6 @@
 # A COMPREHENSIVE APPROACH TO API DEVELOPMENT: MYSQL STORED PROCEDURES, NODEJS, AND ROLE MANAGEMENT 
 This collaborative project focuses on constructing SQL queries, developing a business logic layer with NodeJS and Stored Procedures, and implementing best practices in database connectivity and role-based access control. Set within a fictitious college scenario, it aims to meet the diverse needs of administrators, teachers, students, and courses.
 
-----
-Teddy Notes: To Add:   Detail Around API Service Role
-----
-
 # Table of Contents
 - [Set Up](#set-up)
 - [Run the Project](#run-the-project)
@@ -19,7 +15,8 @@ Teddy Notes: To Add:   Detail Around API Service Role
 - Open a command prompt or terminal and run the following command\
 git clone https://github.com/THarmse/End_of_Module_Assignment_MySQL_and_API.git
 
-2. Install Dependencies
+2. Install Node.JS and Project Dependencies
+- Ensure Node.JS is installed https://nodejs.org/en/download
 - To set up the project, run the following command to install the required npm packages\
 npm install
 
@@ -55,40 +52,33 @@ mysql --version
 ## Create Service Account
 1. Open api_to_mysql_ServiceAccount.sql from the "database scripts/Create Scripts" folder
 2. Execute this script in MySQL Workbench to create the "API" Service Account
-3. Ensure that db.config.js is in line with this script Username/Password, should you opt to change the password (#set-up)
+3. Ensure that db.config.js is in line with this script Username/Password, should you opt to change the password [Set Up](#set-up)
   
-## Run the Project
-1. Start the Server:
-Open a command prompt or terminal and run the following command to start the Node.js server\
-npm start
-
-## Execute Script for Service Account
-   
-----
-NOTE :   @YUMI :  Pleaes add npm install and all other setup 
-NOTE:  Add detail to update config file to localhost,Service Account username and password and ensure db name is as per mySQL
-NOTE:  Execute the stored procedures as per the CodeRepo all 5 of them
-NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
-----
+## Run the API
+1. Start the API:
+Open a command prompt or terminal from the location where the project is stored on your laptop and run the following command to start the Node.js API
+node app.js
+2. Alternatively, run from Visual Studio by, typing node app.js in the Developer Powershell
+3. Note: No front end will be shown as this is an API and Views have been removed/excluded. 
 
 ## Function
 * Enable/Disable Course Availability (Admins):
-* Admins should be able to enable or disable the availability of a course.
+    * Admins should be able to enable or disable the availability of a course.
 * Assign Courses to Teachers (Admins):
-* Admins should be able to assign one or more courses to a teacher.
+    * Admins should be able to assign one or more courses to a teacher.
 * Browse and List Available Courses (Students):
-* Students can browse and list all available courses, including the course title and the teacher's name.
+    * Students can browse and list all available courses, including the course title and the teacher's name.
 * Enroll in a Course (Students):
-* Students can enroll in a course. Enrollments should prevent students from enrolling in a course more than once at each time.
+    * Students can enroll in a course. Enrollments should prevent students from enrolling in a course more than once at each time.
 * Fail or Pass a Student (Teachers):
-* Teachers can fail or pass a student.
+    *   Teachers can fail or pass a student.
 * Access Control:
-* Access control is implemented to ensure only authorized users can perform specific actions. For example, only teachers can pass/fail a student.
+    * Access control is implemented to ensure only authorized users can perform specific actions. For example, only teachers can pass/fail a student.
 
 ## Unit test Using Postman
 1. Download and install Postman from the official website\
   [Postman Downloads](https://www.postman.com/downloads/)
-2. After installation, Run the API
+2. After installation, Run the API (if not already running)
 3. Note: it should indicate "Successfully connected to the database."
 4. Access the Postman collection for this project using the (Guest access)\
    https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
