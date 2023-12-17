@@ -77,11 +77,12 @@ NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841
 1. Download and install Postman from the official website\
   [Postman Downloads](https://www.postman.com/downloads/)
 2. After installation, Run the API
-3. Note: it should indicate ""
+3. Note: it should indicate "Successfully connected to the database."
 4. Access the Postman collection for this project using the (Guest access)\
    https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
-6. Select Collection "Liverpool - Database and API Workspace".
-7. Selct certain requests to test
+   Alternatively, the collection can be imported as stored in the repository, under testing/Liverpool - Database and API.postman_collection.json
+6. In Postman, Select Collection "Liverpool - Database and API Workspace".
+7. Select a requests to test
 8. Click "Send" button to execute the request with the configured environment variables.
 9. Observe the response in the "Body" section to ensure it matches the expected output.
 
