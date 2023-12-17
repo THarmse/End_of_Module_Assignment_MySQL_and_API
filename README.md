@@ -76,9 +76,8 @@ NOTE: Link to Postman collection (Guest access) https://speeding-satellite-93841
 ## Unit test Using Postman
 1. Download and install Postman from the official website\
   [Postman Downloads](https://www.postman.com/downloads/)
-2. After installation, start the MySQL server 
-3. Open a command prompt or terminal and run the following command to verify that MySQL is installed and running\
-mysql --version
+2. After installation, Run the API
+3. Note: it should indicate ""
 4. Access the Postman collection for this project using the (Guest access)\
    https://speeding-satellite-93841.postman.co/workspace/New-Team-Workspace~e3f0516a-f347-4151-be87-1e122139d478/collection/8837553-b229f0a7-8388-46b6-bb0a-6f4a86f95679?action=share&creator=8837553
 6. Select Collection "Liverpool - Database and API Workspace".
@@ -111,6 +110,8 @@ mysql --version
     ├── services
     │   ├── course.service.js
     │   └── enrollment.service.js
+    ├── testing
+    │   ├── Liverpool - Database and API.postman_collection.json
     ├── .gitattributes
     ├── .gitignore
     ├── LiverpoolApp.njsproj
