@@ -38,12 +38,24 @@ npm install
 mysql --version
 
 ## Database Import
-1. Open files in Create Scripts
+1. The Database dumps are located in the "database scripts/Database Import/Dumps" folder
+2. Import these dumps to for "mydb" as the database name
+3. The Stored Procedures are part of the database dumps, but alternatively, the below can be used
+
+## Database Stored Procedures (Optional, if Database Import was not used)
+1. Open files in the "database scripts/Create Scripts" folder
    sp_AssignCoursesToTeacher.sql
    sp_assignStudentGrade.sql
    sp_ChangeCourseAvailability.sql
    sp_EnrollStudentInCourse.sql
    sp_ListAvailableCourses.sql
+2. Execute these scripts in MySQL Workbench (They will automatically use 'mydb' and drop/recreate the procedures)
+
+
+## Create Service Account
+1. Open api_to_mysql_ServiceAccount.sql from the "database scripts/Create Scripts" folder
+2. Execute this script in MySQL Workbench to create the "API" Service Account
+3. Ensure that db.config.js is in line with this script Username/Password, should you opt to change the password (#set-up)
   
 ## Run the Project
 1. Start the Server:
