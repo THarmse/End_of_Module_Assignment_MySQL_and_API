@@ -36,24 +36,42 @@ exports.assignCoursesToTeacher = (adminUserId, courseIdsStr, teacherUserId, call
 /**
  * Service function to list available courses with an optional search filter.
  * This function calls the 'sp_ListAvailableCourses' stored procedure,
- * providing a search term to filter the course names. If no search term is provided,
- * the procedure returns all courses.
+ * providing the student's user ID and an optional search term to filter the course names.
+ * If no search term is provided, the procedure returns all courses.
+ * @param {number} studentUserId - The student's user ID
  * @param {string} optional_course_search - Optional search term to filter available courses
  * @param {function} callback - Callback function to handle the response
  */
-exports.listAvailableCourses = (optional_course_search, callback) => {
-    // Call the stored procedure with the provided search term
-    db.query('CALL sp_ListAvailableCourses(?)', [optional_course_search], (error, results) => {
+exports.listAvailableCourses = (studentUserId, optional_course_search, callback) => {
+    // Initiating a call to the stored procedure with student's ID and optional search term
+    db.query('CALL sp_ListAvailableCourses(?, ?, @p_ResultMessage)', [studentUserId, optional_course_search], (error, results) => {
         if (error) {
-            // Pass any errors that occur during the stored procedure call back to the controller
-            return callback(error, null);
+            // In case of an error during the procedure call, we relay the error back to the calling function
+            return callback(error, null, null);
         }
 
-        // If successful, pass the results back to the controller
-        // Assuming the results are in the first element of the results array
-        return callback(null, results[0]);
+        // Post-procedure, checking for a result message which implies a validation failure
+        db.query('SELECT @p_ResultMessage AS ResultMessage', (error, messageResults) => {
+            if (error) {
+                // Any issues in fetching the OUT parameter result in passing the error back upstream
+                return callback(error, null, null);
+            }
+
+            const resultMessage = messageResults[0].ResultMessage;
+            if (resultMessage) {
+                // When a result message is present, it indicates a validation issue; returning message from Stored Procedure
+                return callback(null, resultMessage, null);
+            } else {
+                // In the absence of a result message, successful execution, and return the course data
+                return callback(null, null, results[0]);
+            }
+        });
     });
 };
+
+
+
+
 
 /**
  * Service function to change the availability of a course.
